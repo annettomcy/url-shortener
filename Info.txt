@@ -1,0 +1,56 @@
+Initially the code was in app.py
+
+To create blueprints everything was changed so we can have one init file and multiple folders for each blueprint making it easier
+
+Testing
+=======
+ For testing, we installed pytest.
+ --> pipenv install pytest
+ --> create a file named conftest.py as pytest looks for it first
+ --> then after setting that up, go and type pytest
+ --> the test codes are written in files starting with 'test_' then name of test code
+ 
+ WSGI(Web Server Gateway Interface)
+ ===================================
+ - Protocol for python apps inorder to serve websites in a uniform manner
+ - Within wsgi, we have frameworks and servers
+ - Examples:
+   --frameworks -> flask, django
+   --servers -> gunicorn, uWSGI
+ - what wsgi allows, is that if we have some sort of python framework that wants to serve webpages if it follows the wsgi format, that means any python framwework we choose can work with any compatible wsgi server (like gunicorn, etc)
+ 
+ Deploying with gunicorn
+ ========================
+ - When we are ready to share the web app with the world we need to deploy it
+ - That is we need to put our code on a server so it is available always
+ - deploying project on linux server
+ - move into project directory
+ - pipenv install
+ - pipenv shell
+ - make sure app can run
+ - export FLASK_APP=urlshort
+ - flask run
+ - flask run --host=0.0.0.0
+ - it will run on a certain Protocol
+ - entering the ip address followed by :port into a web browser
+ - lets make it run on an actual server
+ - gunicorn - green unicnorn
+ - pipenv install gunicorn
+ - gunicorn "urlshort:create_app()" -b 0.0.0.0
+ - type the ip adress followed by port
+ - nginx with gunicorn to run our site to make efficient
+ - sudo apt install nginx
+ - systemctl status nginx --> :q to quit
+ - sudo nano /etc/nginx/site-enabled/defualt
+  -> listen 80 
+  -> location 
+        --> can find the code on gunicorn "proxy-pass"
+ - gunicorn "urlshort:create_app()" -b 0.0.0.0 --daemon 
+ - daemon is to make sure it runs even though terminal is closed
+ - we need to edit where files are stored
+    -> nano urlshort/urlshort.py
+    -> make sure it is in the proper directory you have on the server
+  
+ 
+ Check out flask documentation
+ Also check out Django
